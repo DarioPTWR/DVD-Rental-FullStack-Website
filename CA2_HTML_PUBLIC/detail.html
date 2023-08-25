@@ -1,0 +1,219 @@
+<!--
+  Template Credits :
+  https://templatemo.com/tm-572-designer
+  https://bootstrapious.com/p/boutique-bootstrap-e-commerce-template
+  Thank You!
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SP DVD | DVD Results</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- gLightbox gallery-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/glightbox/css/glightbox.min.css">
+    <!-- Range slider-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/nouislider/nouislider.min.css">
+    <!-- Choices CSS-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/choices.js/public/assets/styles/choices.min.css">
+    <!-- Swiper slider-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/swiper/swiper-bundle.min.css">
+    <!-- Google fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="../CA2_CSS/style.default.css" id="theme-stylesheet">
+    <!-- Main stylesheet-->
+    <link rel="stylesheet" href="../CA2_CSS/main.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="../CA2_GRAPHICS/dvd.png">
+  </head>
+
+  <body>
+    <div class="page-holder bg-light">
+      <!--Navigation Bar-->
+      <header class="header bg-white">
+        <div class="container px-lg-3">
+          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="../CA2_HTML_PUBLIC/index.html"><span class="fw-bold text-uppercase text-dark">SP DVD RENTAL STORE</span></a>
+            <button class="navbar-toggler navbar-toggler-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="../CA2_HTML_PUBLIC/index.html">Home</a>
+                </li>
+              </ul>
+              <ul class="navbar-nav ms-auto">               
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="login" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user me-1 text-gray fw-normal"></i>Login
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="../CA2_HTML_PUBLIC/user_login.html">User</a>
+                    <a class="dropdown-item" href="../CA2_HTML_PUBLIC/staff_login.html">Staff</a>
+                  </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" id ='logout' href="../CA2_HTML_PUBLIC/index.html"><i class="fas fa-user me-1 text-gray fw-normal"></i>Logout</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Main Body Section -->
+      <div class="container main-section mt-2">
+        <section class="d-flex align-items-center">
+          <div class="container py-5 d-flex justify-content-center">
+            <div class="row px-lg-5">
+              <div>
+                <center><p class='text-dark text-uppercase mb-1' id="loggedInAs"></p><p class="text-muted text-uppercase mb-2">Based on your search</p></center>
+                <center><h1 id="count" class="h2 text-uppercase mb-1 main-text"></h1></center>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+      <!-- Implement Back-end Login Endpoint Function -->
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" 
+      crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+    
+      <div class="container">
+        <div id = 'dvdRecords' class="row">
+          <div class="container">
+            <div id="count"></div>
+            <div id = 'dvdRecords' class="row"></div>
+            
+            <script>
+              var dvdRecords;
+              var dvdRecordsShown;
+              var currentPage = 1;
+              var itemsPerPage = 21;        
+              $(function() {
+                // Maintaining and Checking Login Status
+                if (localStorage['status'] == '"customer"') {
+                  var customerName = JSON.parse(localStorage.getItem("name"));
+                  document.getElementById("loggedInAs").innerHTML = "Logged in as: " + customerName;
+                  $("#login").css('display', 'none');
+                } else {
+                  document.getElementById("loggedInAs").innerHTML = "Public User";
+                  $("#logout").css('display', 'none');
+                }
+
+                // Deleting token and status upon logout
+                $("#logout").click(function(event) {
+                  localStorage.removeItem("token");
+                  localStorage.removeItem("name");
+                  localStorage.removeItem("status");
+                  localStorage.removeItem("customer_id");
+                  window.location.href="user_login.html"
+                });
+
+                // Retrieve the data from localStorage
+                dvdRecords = JSON.parse(localStorage.getItem("dvdRecords"));
+                // Count of number of DVD records returned
+                var count = dvdRecords.length;
+                if (count == undefined || count == 0) {
+                    $("#count").text('0 RELATED RESULTS FOUND:');
+                    $("#prevButton").hide();
+                    $("#nextButton").hide();
+                } else {
+                    $("#count").text(count + ' RELATED RESULTS FOUND:');
+                }
+                showPage(1);
+            });
+          
+              function storeTitle(title) {
+                  localStorage['clickedTitle'] = JSON.stringify(title);
+                  window.location.href = 'all_dvd_info.html';
+              }
+          
+              function showPage(page) {
+                  currentPage = page;
+                  if (Array.isArray(dvdRecords)) {
+                    dvdRecordsShown = dvdRecords.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+                  }
+                  // Clear the set of DVD cards on the current page
+                  $("#dvdRecords").empty();
+          
+                  // Iterate through the records and create a card element for each DVD record
+                  for (var i = 0; i < dvdRecordsShown?.length; i++) {
+                      var dvd = dvdRecordsShown[i];
+                      var element = `
+                          <div class="col-12 col-sm-6 col-md-4 mt-2 mb-4">
+                            <div class="card dvdCards" onclick="storeTitle('${dvd.title}')">
+                              <div class="card-body dvdCards-body text-center align-items-center">
+                              <p class="card-text" style="color: #E50914" id ='dvd_title data-title="#dvd_title"'>${dvd.title}</p>
+                              <p class="card-text">Release: ${dvd.release_year}</p>
+                              <p class="card-text">Rating: ${dvd.rating}</p>
+                              </div>
+                            </div>
+                          </div>
+                          `;
+                      $("#dvdRecords").append(element);
+                  }
+          
+                  // Clear the current set of DVDs in the pagination
+                  $("#pagination").empty();
+                  // Retrieve the number of pages
+                  var numberOfPages = Math.ceil(dvdRecords.length / itemsPerPage);
+                  var prevButton = "<button class='btn btn-secondary mr-2' onclick='showPage(" + (currentPage - 1) + ")' " + (currentPage == 1 ? "disabled" : "") + ">Previous</button>";
+                  // Conditional checks for the buttons based on the pages
+                  if (currentPage === 1 && numberOfPages > 1) {
+                    $("#prevButton").prop("disabled", true);
+                  } else if (numberOfPages === 1) {
+                    $("#prevButton").hide();
+                  } else {
+                    $("#prevButton").prop("disabled", false);
+                  }
+
+                  $("#pagination").append(prevButton);
+
+                  // Create pagination elements
+                  for (var i = 1; i <= numberOfPages; i++) {
+                    var paginationElement = `<button class="btn btn-secondary mr-2" onclick="showPage(${i})">${i}</button>`;
+                    $("#pagination").append(paginationElement);
+                  }
+                  var nextButton = "<button class='btn btn-secondary mr-2' onclick='showPage(" + (currentPage + 1) + ")' " + (currentPage == numberOfPages ? "disabled" : "") + ">Next</button>";
+                  // Conditional checks for the buttons based on the pages
+                  if (currentPage === numberOfPages && numberOfPages > 1) {
+                    $("#nextButton").prop("disabled", true);
+                  } else if (numberOfPages === 1) {
+                    $("#nextButton").hide();
+                  } else {
+                    $("#nextButton").prop("disabled", false);
+                  }
+
+                  $("#pagination").append(nextButton);
+                }
+            </script>
+        </div>
+      </div>
+
+      <!-- Buttons for Previous and Next -->
+      <div class="text-center mb-5 mt-3">
+          <button class="mx-5 mt-2" id='prevButton' onclick="showPage(currentPage - 1)">PREVIOUS</button>
+          <button class="mx-5 mt-3" id="nextButton" onclick="showPage(currentPage + 1)">NEXT</button>
+      </div>
+      
+      <!-- JavaScript files-->
+      <script src="../CA2_VENDOR_FILES/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/glightbox/js/glightbox.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/nouislider/nouislider.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/swiper/swiper-bundle.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/choices.js/public/assets/scripts/choices.min.js"></script>
+      <script src="../CA2_JAVASCRIPT/front.js"></script>
+      <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    </div>
+  </body>
+</html>

@@ -1,0 +1,196 @@
+<!--
+  Template Credits :
+  https://templatemo.com/tm-572-designer
+  https://bootstrapious.com/p/boutique-bootstrap-e-commerce-template
+  Thank You!
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SP DVD | Customer</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- gLightbox gallery-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/glightbox/css/glightbox.min.css">
+    <!-- Range slider-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/nouislider/nouislider.min.css">
+    <!-- Choices CSS-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/choices.js/public/assets/styles/choices.min.css">
+    <!-- Swiper slider-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/swiper/swiper-bundle.min.css">
+    <!-- Google fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="../CA2_CSS/style.default.css" id="theme-stylesheet">
+    <!-- Main stylesheet-->
+    <link rel="stylesheet" href="../CA2_CSS/main.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="../CA2_GRAPHICS/dvd.png">
+  </head>
+
+  <body class="mainBody">
+    <div class="page-holder">
+      <!--Navigation Bar-->
+      <header class="header bg-white">
+        <div class="container px-lg-3">
+          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand"><span class="fw-bold text-uppercase text-dark">SP DVD RENTAL STORE</span></a>
+            <button class="navbar-toggler navbar-toggler-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ms-auto">               
+                <li class="nav-item"><a class="nav-link" href="../CA2_HTML_PUBLIC/customer.html"> <i class="fas fa-angle-left me-1 text-gray"></i>Back</a></li>
+                <li class="nav-item"><a class="nav-link" href="../CA2_HTML_PUBLIC/user_login.html"><i class="fas fa-user me-1 text-gray fw-normal"></i>Logout</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Main Body Section -->
+      <div class="container main-section">
+        <section class="hero pb-3 d-flex align-items-center">
+          <div class="container py-5 mb-5 d-flex justify-content-center">
+            <div class="row px-lg-5">
+              <div>
+                <center><p class="text-muted text-uppercase mb-2">Customer</p><p class='text-uppercase mb-2' id="loggedInAs" style="color:white"></p></center>
+                <center><h1 class="h2 text-uppercase mb-1 main-text">DELETE YOUR DVD REVIEW BELOW.</h1><!--<a class="btn btn-dark" href="shop.html">Browse our collections</a>--></center>
+              </div>
+            </div>
+          </div>
+        </section>
+    </div>
+
+    <!--Displaying reviews of the film-->
+    <div id = 'customerReviews' class = 'container'></div>
+    <!--Displaying message if there are no reviews-->
+    <div id = 'noCustomerReviews' class = 'container'></div>
+
+    <!-- Implement the Backend code for addition of a new actor to the database -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" 
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(function() {
+            if(!localStorage['token']) {
+                window.alert("Unauthorised Access. Please Login.");
+                window.location.href = "user_login.html";
+            }
+            // If Logout, Remove Token !!
+            $('#logout').click(event => {
+              localStorage.removeItem("token");
+              window.location.href="user_login.html"
+            })
+            // Getting name of Customer from localStorage
+            var customerName = JSON.parse(localStorage.getItem("name"));
+            document.getElementById("loggedInAs").innerHTML = "Logged in as: " + customerName;
+
+            // Get the customer_id of the customer logged in
+            var customer_id = JSON.parse(localStorage.getItem("customer_id"))
+            // Set settings for url
+            var settings = {
+              "url": "http://localhost:3000/cust-review",
+              "method": "GET",
+              "timeout": 0,
+              "headers": {
+                "Authorization": "Bearer " + localStorage['token'],
+                "Content-Type": "application/json"
+              }
+            };
+
+            $.ajax(settings).done(function (response) {
+              console.log(response);
+
+              var element = `
+              <table class="table table-bordered border border-light"> 
+                <tbody>
+                  <tr class="text-dark border border-light"> 
+                    <th class='col-lg-1 border border-light px-4 text-white text-uppercase'><center>DVD</center></th> 
+                    <th class='col-lg-1 border border-light px-4 text-white text-uppercase'><center>SCORE</center></th> 
+                    <th class='col-lg-6 border border-light px-4 text-white text-uppercase'><center>COMMENTS</center></th> 
+                    <th class='col-lg-4 border border-light text-white text-uppercase'><center>DELETE REVIEW</center></th> 
+                  </tr>
+              `;
+              
+              if (response?.length === undefined) {
+                $("#noCustomerReviews").append(`
+                <div class="container d-flex justify-content-center">
+                  <div class="row px-lg-5">
+                      <center><h2 class="text-uppercase mb-1 main-text">YOU HAVE NOT MADE ANY REVIEWS YET.</h2></center>
+                  </div>
+                </div>`);
+
+              } else {
+                  for (j = 0; j < response.length; j++) {
+                    // Loop through the reviews for the films and display one by one
+                    var review = response[j];
+                    element += `
+                    <tr class='border-bottom border-light'> 
+                      <td class='col-lg-3 border border-light pt-3' style="color:white"><center>${review.title || 'Title Not Found'}</center></td> 
+                      <td class='col-lg-1 border border-light pt-3' style="color:white"><center>${review.score || 'Score Not Found'} / 5</center></td> 
+                      <td class='col-lg-4 border border-light pt-3 px-4' id = 'reviewComments' style="color:white"><center>${review.comment || 'Comment Not Found'}</center></td> 
+                      <td class="col-lg-4"><center><button class="review-button" input type="submit" data-id="${review.review_id}">DELETE REVIEW</button></center></td>
+                    </tr>`;
+                  }
+
+                  element += `</tbody></table>`;
+                  $("#customerReviews").append(element);
+
+                  $(".review-button").click(function(event) {
+                    // Event Handler when Clicked on Submit
+                    console.log(event)
+                    // Prevent form submission
+                    event.preventDefault();
+                    var review_id = $(this).attr("data-id");
+                    // Set settings url
+                    var settings = {
+                      "url": "http://localhost:3000/delete-review?review_id=" + review_id,
+                      "method": "DELETE",
+                      "timeout": 0,
+                      "headers": {
+                        "Authorization": "Bearer " + localStorage['token'],
+                        "Content-Type": "application/json"
+                      }
+                    };
+                    
+                    $.ajax(settings)
+                    .done(function (response) {
+                      console.log(response);
+                      window.alert("Review has been successfully deleted!");
+                      window.location.href = 'review_customer.html';
+                    })
+                    .fail((response) => {
+                      console.log(response.responseJSON);
+                    })
+                });
+
+              }
+            })
+            .fail((response) => {
+              console.log(response.responseJSON)
+            });
+        });
+
+    </script>
+
+      <!-- JavaScript files -->
+      <script src="../CA2_VENDOR_FILES/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/glightbox/js/glightbox.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/nouislider/nouislider.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/swiper/swiper-bundle.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/choices.js/public/assets/scripts/choices.min.js"></script>
+      <script src="../CA2_JAVASCRIPT/front.js"></script>
+
+      <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    </div>
+  </body>
+</html>

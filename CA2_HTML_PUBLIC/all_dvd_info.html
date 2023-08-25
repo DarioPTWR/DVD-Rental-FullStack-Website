@@ -1,0 +1,360 @@
+<!--
+  Template Credits :
+  https://templatemo.com/tm-572-designer
+  https://bootstrapious.com/p/boutique-bootstrap-e-commerce-template
+  Thank You!
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SP DVD | DVD Information</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- gLightbox gallery-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/glightbox/css/glightbox.min.css">
+    <!-- Range slider-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/nouislider/nouislider.min.css">
+    <!-- Choices CSS-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/choices.js/public/assets/styles/choices.min.css">
+    <!-- Swiper slider-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/swiper/swiper-bundle.min.css">
+    <!-- Google fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="../CA2_CSS/style.default.css" id="theme-stylesheet">
+    <!-- Main stylesheet-->
+    <link rel="stylesheet" href="../CA2_CSS/main.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="../CA2_GRAPHICS/dvd.png">
+  </head>
+
+  <body>
+    <div class="page-holder bg-light">
+      <!--Navigation Bar-->
+      <header class="header bg-white">
+        <div class="container px-lg-3">
+          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="../CA2_HTML_PUBLIC/index.html"><span class="fw-bold text-uppercase text-dark">SP DVD RENTAL STORE</span></a>
+            <button class="navbar-toggler navbar-toggler-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="../CA2_HTML_PUBLIC/index.html">Home</a>
+                  <li class="nav-item"><a class="nav-link" href="../CA2_HTML_PUBLIC/detail.html"> <i class="fas fa-angle-left me-1 text-gray"></i>Back</a></li>
+                </li>
+              </ul>
+              <ul class="navbar-nav ms-auto">               
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="login" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user me-1 text-gray fw-normal"></i>Login
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="../CA2_HTML_PUBLIC/user_login.html">User</a>
+                    <a class="dropdown-item" href="../CA2_HTML_PUBLIC/staff_login.html">Staff</a>
+                  </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" id ='logout' href="../CA2_HTML_PUBLIC/index.html"><i class="fas fa-user me-1 text-gray fw-normal"></i>Logout</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Main Body Section -->
+      <div class="container main-section mt-2">
+        <section class="d-flex align-items-center">
+          <div class="container py-5 d-flex justify-content-center">
+            <div class="row px-lg-5">
+              <div>
+                <center><p class='text-uppercase mb-2' id="loggedInAs" style="color:black"></p><p class="text-muted text-uppercase mb-2">DVD RECORD</p></center>
+                <center><h1 class="text-uppercase mb-1 main-text">FILM DETAILS</h1></center>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+      <!--Displaying the information of the film-->
+      <div id = 'dvdInfo' class="container mt-3"></div>
+
+      <!--Displaying reviews of the film-->
+      <div id = 'dvdReviews' class = 'container mt-3'></div>
+
+      <!--Horizontal Line for Reviews-->
+      <div class="container"><hr class="mt-5" style="border-top: 8px solid rgb(0, 0, 0);"></div>
+      <!--Create a container for customers to submit reviews-->
+      <div class="container">
+        <!--Reviews Form Title-->
+        <div>
+          <center><h3 class="text-uppercase mb-4 pt-4 main-text">LEAVE A REVIEW</h3></center>
+        </div>
+        <div class="border border-dark p-5 mb-5">
+          <form id="review-form">
+            <div class="form-group">
+              <label for="review-score" class="mb-3">Rate (On a Scale of 1 - 5) :</label>
+              <select class="form-select" aria-label="Default select example" id="review-score">
+                <option value="">Select Rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="review-comments" class="mt-3 mb-3">Any Comments :</label>
+              <textarea class="form-control" id="review-comments" rows="3" placeholder="Write your thoughts here . . ."></textarea>
+            </div>
+            <div>
+              <center><span id="fieldCheck"></span></center>
+            </div>
+            <button type="submit" id = "btn_review" class="btn_review mt-5">SUBMIT REVIEW</button>
+          </form>
+        </div>
+      </div>
+
+      <!--Retrieving all records of the DVD clicked on-->
+      <!-- Implement Back-end Login Endpoint Function -->
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" 
+      crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+
+      <script>
+        $(function () {
+            // Maintaining and Checking Login Status
+            if (localStorage['status'] == '"customer"') {
+              var customerName = JSON.parse(localStorage.getItem("name"));
+              document.getElementById("loggedInAs").innerHTML = "Logged in as: " + customerName;
+              $("#login").css('display', 'none');
+            } else {
+              document.getElementById("loggedInAs").innerHTML = "Public User";
+              $("#logout").css('display', 'none');
+            }
+
+            // Deleting token and status upon logout
+            $("#logout").click(function(event) {
+              localStorage.removeItem("token");
+              localStorage.removeItem("name");
+              localStorage.removeItem("status");
+              localStorage.removeItem("customer_id");
+              window.location.href="user_login.html"
+            });
+
+            // Get the title of the clicked card and retrieve data from localStorage
+            var dvdTitle = JSON.parse(localStorage.getItem("clickedTitle"))
+            // Set settings for url
+            var settings = {
+              "url": "http://localhost:3000/dvd/information?film_title=" + dvdTitle,
+              "method": "GET",
+              "timeout": 0,
+              "headers": {
+              "Content-Type": "application/json"
+              }
+            };
+
+            $.ajax(settings)
+            .done(function (response) {
+            console.log(response);
+            
+            for (var i = 0; i < response.length; i++) {
+              // Loop through the response items and display one by one
+                var dvd = response[i];
+                // Store film_id in localStorage
+                localStorage['film_id'] = JSON.stringify(dvd.film_id);
+                var element = `
+                    <div class='container'>
+                        <div class='row'>
+                            <div class='text-center' id='mainDVDInfo'>
+                            <h1>${dvd.title || 'TITLE NOT FOUND'}</h1>
+                            <p>${dvd.description || '<b>Description Not Found</b>'}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container pt-5 d-flex justify-content-center">
+                        <div class="row px-lg-5">
+                          <div>
+                            <center><h3 class="text-uppercase text-muted mb-1 main-text">MORE DETAILS ON THE DVD FILM</h3></center>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class='text-center mb-5 subDVDInfo'>
+                        <table class="table table-bordered">
+                            <tbody>
+                              <tr>
+                                <th scope="row" class='col-lg-6 border border-dark'>Release Year</th>
+                                <td class='col-lg-6 border border-dark' id='releaseYear'>${dvd.release_year || '<b>Not Available</b>'}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row" class='border border-dark'>Category</th>
+                                <td class='table-info border border-dark'>${dvd.category || '<b>Not Available</b>'}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row" class='border border-dark'>Rating</th>
+                                <td class='table-success border border-dark'>${dvd.rating || '<b>Not Available</b>'}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row" class='border border-dark'>Actors</th>
+                                <td class='table-secondary border border-dark'>${dvd.actor || '<b>Not Available</b>'}</td>
+                              </tr>
+                            </tbody>                                
+                    </div>
+                </div>`;
+
+                $("#dvdInfo").append(element);
+            }
+
+            // Retrieve customer_id and film_id from localStorage
+            var customer_id = JSON.parse(localStorage.getItem("customer_id"));
+            console.log(customer_id)
+            var film_id = JSON.parse(localStorage.getItem("film_id"));
+            console.log(film_id);
+
+            // Allow customers to leave a review and submit onclick
+            $("#btn_review").click(function(event) {
+              // Event Handler when Clicked on Submit Review
+              console.log(event)
+              // Prevent form submission
+              event.preventDefault();
+              // Set settings for url
+              var settings = {
+                "url": "http://localhost:3000/customer/review",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                  "Authorization": "Bearer " + localStorage['token'],
+                  "Content-Type": "application/json"
+                },
+                "data": JSON.stringify({
+                  "film_id": film_id,
+                  "score": $("#review-score").val(),
+                  "comments": $("#review-comments").val()
+                }),
+              };
+
+              // Conditional Checks to Check the Fields
+              // Check if user is logged in
+              if (customer_id == undefined || customer_id == null) {
+                $("#fieldCheck").text("Please login to leave a review!");
+                return;
+              } else if ($("#review-score").val() == '' && $("#review-comments").val() == '') {
+                console.log(customer_id)
+                $("#fieldCheck").text("Please leave a rating and a comment to proceed!");
+                return;
+                // Check if comments field is filled
+              } else if ($("#review-comments").val() == '') {
+                $("#fieldCheck").text("Please leave a comment!");
+                return;
+                // Check if user is review score is filled
+              } else if ($("#review-score").val() == '') {
+                $("#fieldCheck").text("Please provide a rating score!");
+                return;
+              } else {
+                $("#fieldCheck").text("Thank you for reviewing! Refresh to view your review.");
+                $("#review-form")[0].reset();
+              }
+
+              $.ajax(settings)
+              .done(function (response) {
+                console.log(response);
+              })
+              .fail((response) => {
+                console.log(response.responseJSON);
+                $("#fieldCheck").html(response.responseJSON.error_msg);
+              });
+            });
+
+            // View reviews posted according to DVD film_id
+            var settings = {
+              "url": "http://localhost:3000/film-review?film_id=" + film_id,
+              "method": "GET",
+              "timeout": 0,
+              "headers": {
+                "Content-Type": "application/json"
+              }
+            };
+            
+            $.ajax(settings).done(function (response) {
+              console.log(response);
+
+              var element = `
+              <div class="container pt-3 d-flex justify-content-center">
+                <div class="row px-lg-5">
+                  <div>
+                    <center><h3 class="text-uppercase mb-1 main-text">WHAT OUR CUSTOMERS HAVE TO SAY</h3></center>
+                  </div>
+                </div>
+              </div>
+
+              <table class="table table-bordered mt-5"> 
+                <thead> 
+                  <tr> 
+                  <th class='col-lg-3 border border-dark'><center>REVIEWER</center></th> 
+                  <th class='col-lg-2 border border-dark'><center>SCORE</center></th> 
+                  <th class='col-lg-4 border border-dark'><center>COMMENTS</center></th>
+                  <th class='col-lg-3 border border-dark'><center>REVIEW DATE</center></th> 
+                  </tr> 
+                </thead> 
+                <tbody>`;
+              
+              if (response?.length === undefined) {
+                $("#dvdReviews").append(`
+                <div class="container pt-3 d-flex justify-content-center">
+                  <div class="row px-lg-5">
+                    <div>
+                      <center><h3 class="text-uppercase mb-1 main-text">NO REVIEWS. BE THE FIRST TO REVIEW!</h3></center>
+                    </div>
+                  </div>
+                </div>`);
+
+              } else {
+                  for (j = 0; j < response.length; j++) {
+                    // Loop through the reviews for the films and display one by one
+                    var review = response[j];
+                    element += `
+                    <tr> 
+                      <td class='col-lg-3 border border-dark'><center>${review.first_name || 'Name Not Found'}</center></td>
+                      <td class='col-lg-2 border border-dark'><center>${review.score || 'Score Not Found'} / 5</center></td> 
+                      <td class='col-lg-4 border border-dark px-4' style='word-break: break-all;'><center>${review.comment || 'Comment Not Found'}</center></td>
+                      <td class='col-lg-3 border border-dark'><center>${review.review_date || 'Date Not Found'}</center></td>  
+                    </tr>`;
+                  }
+
+                  element += `</tbody> </table>`;
+                  $("#dvdReviews").append(element);
+              }
+            })
+            .fail((response) => {
+              console.log(response.responseJSON)
+            });
+
+          })
+            .fail((response) => {
+            console.log(response.responseJSON);
+          }); 
+        });
+
+      </script>
+
+      <!-- JavaScript files-->
+      <script src="../CA2_VENDOR_FILES/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/glightbox/js/glightbox.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/nouislider/nouislider.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/swiper/swiper-bundle.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/choices.js/public/assets/scripts/choices.min.js"></script>
+      <script src="../CA2_JAVASCRIPT/front.js"></script>
+      <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    </div>
+  </body>
+</html>

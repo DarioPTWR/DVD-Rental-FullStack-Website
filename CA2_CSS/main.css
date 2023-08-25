@@ -1,0 +1,260 @@
+/*
+  Template Credits :
+  https://templatemo.com/tm-572-designer
+  https://bootstrapious.com/p/boutique-bootstrap-e-commerce-template
+  Thank You!
+*/
+
+/* CSS Styling for Main Body Elements */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.mainBody {
+    font-family: 'Poppins', sans-serif;
+    background-color: #212529;
+}
+
+.dropdown-menu {
+    min-width: 110px; 
+}
+
+/* CSS Styling for Search DVDs and Login Form */
+.search-form, .login-form{
+    margin-top: -180px;
+    margin-bottom: 50px;
+}
+.main-text {
+    color:#E50914;
+}
+.main-section{
+    margin-top:-50px
+}
+
+label {
+    display: inline-block;
+}
+
+.adminTable {
+    border: white;
+}
+  
+.search-form #search-form, .login-form #login-form{
+    padding: 30px;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 7.5px;
+    margin-bottom: 0px;
+}
+
+.search-form #search-form label, .login-form #login-form label{
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+  
+@media (min-width: 576px) {
+    .search-form #search-form, .login-form #login-form{
+      padding: 60px;
+    }
+}
+  
+@media (min-width: 576px) {
+    .search-form #search-form label, .login-form #login-form label{
+      margin-bottom: 20px;
+    }
+}
+
+.search-form #search-form input, .search-form #search-form select, .login-form #login-form input, .login-form #login-form select, .admin-form #admin-form select, .admin-form #admin-form input {
+    width: 100%;
+    height: 44px;
+    border-radius: 7.5px;
+    border: 1px solid #eeeeee;
+    font-size: 14px;
+    padding: 0px 15px;
+    margin-bottom: 30px;
+}
+  
+.search-form #search-form button.main-button, .login-form #login-form button.main-button, .login-form #login-form button.reset-button, .btn_review {
+    width: 100%;
+    margin-top: 12px;
+}
+
+button.main-button, button.reset-button, button.actor-button, button.customer-button, button.dvd-button, button.staff-button, button.btn_review, button.review-button {
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #ff565b;
+    padding: 11px 25px;
+    border-radius: 7.5px;
+    display: inline-block;
+    outline: none;
+    border: none;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+}
+
+button.actor-button, button.customer-button, button.dvd-button, button.staff-button, button.review-button{
+    width: 90%;
+}
+
+.form-select {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    -moz-padding-start: calc(0.75rem - 3px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#login-error {
+    margin-top:-13px;
+    color:#E50914;
+    margin-left: 2px;
+}
+
+select:not(:-internal-list-box) {
+    overflow: visible !important;
+}
+
+/* Styles for Admin Option Table */
+.table {
+    margin-top:-160px;
+}
+
+/* Styles for Add New Actor Page */
+button.main-button-actor, button.reset-button-actor, button.main-button-customer, button.reset-button-customer {
+    width: 100%;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #ff565b;
+    padding: 11px 25px;
+    border-radius: 7.5px;
+    display: inline-block;
+    outline: none;
+    border: none;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+}
+
+/* CSS Styling for Eye Icon (Password Field) */
+.icon {
+    cursor: pointer;
+}
+
+/* CSS Styling for DVD Records */
+.dvdCards {
+    height: 200px;
+    box-sizing: border-box;
+    padding:5px;
+    text-align:center;
+    justify-content: center;
+    border-color: #E50914;
+    border-width: 2px;
+    font-weight: bold;
+    background: linear-gradient(to left, rgb(255, 255, 255) 50%, #cccdcf 50%);
+    background-size: 200%;
+    background-position: right;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.dvdCards:hover {
+    background-position: left;
+    cursor:pointer;
+    transition: background-position 0.5s ease-out;
+} 
+
+.dvdCards-body{
+    margin-top: 25px; 
+}
+
+/* CSS Styling for DVD Information */
+#mainDVDInfo {
+    box-sizing: border-box;
+    width: 100%;
+    height: 140px;
+    border: 2px solid #969696;
+    padding-top:20px
+}
+
+@media (max-width: 480px) {
+    #mainDVDInfo{
+      height:150px;
+    }
+}
+
+.subDVDInfo, .reviewsInfo {
+    padding-top: 200px;
+}
+
+#releaseYear{
+    background-color: #de7a7f;
+}
+
+/* CSS Styling for POSTing a new customer */
+#email-conflict, #fieldCheck {
+    color:#E50914;
+    font-weight: bold;
+}
+
+/* Pagination Buttons */
+#prevButton, #nextButton {
+    width: 40%;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #ff565b;
+    padding: 11px 25px;
+    border-radius: 7.5px;
+    display: inline-block;
+    outline: none;
+    border: none;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+}
+
+#prevButton:disabled, #nextButton:disabled{
+    background-color: #dddcdc;
+}
+
+@media (max-width: 1190px) {
+    #prevButton, #nextButton {
+      width: 60%;
+    }
+}
+
+/*CSS Styling if comment is too long*/
+#reviewComments {
+    word-break: break-all;
+}
+
+/*CSS for message if there are no reviews*/
+#noCustomerReviews{
+    margin-top: -60px;
+}
+
+#customerReviews {
+    padding-bottom:20px;
+}
+
+
+
+
+

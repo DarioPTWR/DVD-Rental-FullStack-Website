@@ -1,0 +1,219 @@
+<!--
+  Template Credits :
+  https://templatemo.com/tm-572-designer
+  https://bootstrapious.com/p/boutique-bootstrap-e-commerce-template
+  Thank You!
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SP DVD | Login</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- gLightbox gallery-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/glightbox/css/glightbox.min.css">
+    <!-- Range slider-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/nouislider/nouislider.min.css">
+    <!-- Choices CSS-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/choices.js/public/assets/styles/choices.min.css">
+    <!-- Swiper slider-->
+    <link rel="stylesheet" href="../CA2_VENDOR_FILES/swiper/swiper-bundle.min.css">
+    <!-- Google fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="../CA2_CSS/style.default.css" id="theme-stylesheet">
+    <!-- Main stylesheet-->
+    <link rel="stylesheet" href="../CA2_CSS/main.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="../CA2_GRAPHICS/dvd.png">
+  </head>
+  
+  <body class="mainBody">
+    <div class="page-holder">
+      <!--Navigation Bar-->
+      <header class="header bg-white">
+        <div class="container px-lg-3">
+          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="../CA2_HTML_PUBLIC/index.html"><span class="fw-bold text-uppercase text-dark">SP DVD RENTAL STORE</span></a>
+            <button class="navbar-toggler navbar-toggler-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="../CA2_HTML_PUBLIC/index.html">Home</a>
+                </li>
+              </ul>
+              <ul class="navbar-nav ms-auto">               
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user me-1 text-gray fw-normal"></i>Login
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="../CA2_HTML_PUBLIC/user_login.html">User</a>
+                    <a class="dropdown-item" href="../CA2_HTML_PUBLIC/staff_login.html">Staff</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Main Body Section -->
+      <div class="container main-section">
+        <section class="hero pb-3 d-flex align-items-center">
+          <div class="container py-5 mb-5 d-flex justify-content-center">
+            <div class="row px-lg-5">
+              <div>
+                <center><p class='text-uppercase mb-2' id="loggedInAs" style="color:white"></p><p class="text-muted text-uppercase mb-2">Hello, Welcome Back to SP DVD!</p></center>
+                <center><h1 class="h2 text-uppercase mb-1 main-text">CUSTOMER LOGIN PAGE</h1></center>
+              </div>
+            </div>
+          </div>
+        </section>
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-form">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form id="login-form" name="gs" method="get" action="#">
+                        <div class="row">
+                            <!--Email Field-->
+                            <div class="col-lg-6">
+                                <fieldset>
+                                    <label for="email">Email Address</label>
+                                    <input type="email" class="form-control" id="customer-email" placeholder="Customer Email*" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                                </fieldset>
+                            </div>
+                            <!--Password Field-->
+                            <div class="col-lg-6">
+                                <fieldset>
+                                    <label for="pwd">Password&nbsp;</label>
+                                    <i class="far fa-eye icon" onclick="toggleVisibility()"></i>
+                                    <input type="password", class="form-control", id="customer-pwd" name="pwd", placeholder="Customer Password*" required>
+                                </fieldset>
+                            </div>
+
+                            <!--Error Message If Login Credentials are Invalid-->
+                            <span id="login-error"></span>
+                            <div class="col-lg-6">                        
+                              <fieldset>
+                                <button class="reset-button" input type="reset" id="btn_reset">RESET</button>
+                            </fieldset>
+                            </div>
+                            <div class="col-lg-6">                        
+                              <fieldset>
+                                <button class="main-button" input type="submit" id="btn_submit">LOG IN</button>
+                            </fieldset>
+                          </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Implement Back-end Login Endpoint Function -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" 
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    
+    <script>
+      $(function () {
+        // Maintaining and Checking Login Status
+        if (localStorage['status'] == '"customer"') {
+          var customerName = JSON.parse(localStorage.getItem("name"));
+          document.getElementById("loggedInAs").innerHTML = "Logged in as: " + customerName;
+          $("#login").css('display', 'none');
+        } else {
+          document.getElementById("loggedInAs").innerHTML = "Public User";
+          $("#logout").css('display', 'none');
+        }
+
+        // If Logout, Remove Token !!
+        $('#logout').click(event => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("name");
+          localStorage.removeItem("status");
+          localStorage.removeItem("customer_id");
+          window.location.href="user_login.html"
+        })
+
+        $("#btn_submit").click(function(event) {
+          // Event Handler when Clicked on Submit
+          console.log(event)
+          // Prevent form submission
+          event.preventDefault();
+          // Set settings for url
+          var settings = {
+            "url": "http://localhost:3000/customer/login",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({
+              "email": $("#customer-email").val(),
+              "password": $("#customer-pwd").val()
+            }),
+        };
+        $.ajax(settings)
+        .done(function (response) {
+          console.log(response);
+          localStorage['name'] = JSON.stringify(response.name);
+          localStorage['token'] = response.token;
+          localStorage['status'] = JSON.stringify(response.status);
+          localStorage['customer_id'] = JSON.stringify(response.id);
+          window.location.href = "customer.html";
+        })
+        .fail((response) => {
+          console.log(response.responseJSON);
+          $("#login-error").text("Login information is invalid. Please try again.")
+        })
+        })
+      })
+    </script>
+    
+
+      <!-- JavaScript files -->
+      <script src="../CA2_VENDOR_FILES/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/glightbox/js/glightbox.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/nouislider/nouislider.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/swiper/swiper-bundle.min.js"></script>
+      <script src="../CA2_VENDOR_FILES/choices.js/public/assets/scripts/choices.min.js"></script>
+      <script src="../CA2_JAVASCRIPT/front.js"></script>
+
+      <!-- Toggle Password Visibility -->
+      <script>  
+        function toggleVisibility() {
+          var passwordInput = document.getElementById("customer-pwd");
+          var eyeIcon = document.querySelector(".icon");
+        
+          if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+          } else {
+            passwordInput.type = "password";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
+          }
+        }
+      </script>
+
+      
+
+      <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    </div>
+  </body>
+</html>
